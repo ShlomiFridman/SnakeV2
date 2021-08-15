@@ -197,7 +197,7 @@ public class MainController {
     		this.bodySize = 5;
     	}
     	// else if has eaten the apple
-    	else if (newHead.isOverlapping(this.apple,20)) {
+    	else if (newHead.isOverlapping(this.apple,18)) {
     		// set eaten apple color (lightgreen)
     		newHead.setPaint(Color.YELLOWGREEN);
     		// get new apple
