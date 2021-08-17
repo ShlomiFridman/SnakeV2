@@ -91,6 +91,6 @@ public class BodyPart {
 	}
 
 	public boolean isOverlapping(BodyPart other, double radius) {
-		return Math.sqrt(Math.pow(x - other.x, 2) + Math.pow(y - other.y, 2)) < radius;
+		return Math.sqrt(Math.pow(x - other.x, 2) + Math.pow(y - other.y, 2)) <= radius;
 	}
 }

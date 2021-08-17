@@ -114,18 +114,23 @@ public class MainController {
     private void draw() {
     	this.gc.clearRect(0, 0, this.anchorPane.getWidth(), this.anchorPane.getHeight());
     	this.apple.drawArc(this.gc);
-    	Iterator<BodyPart> it = body.iterator();
-    	BodyPart bp;
-    	while (it.hasNext()) {
-    		bp = it.next();
-    		bp.drawArc(this.gc);
-    	}
+    	// draw the snake in reverse order
+    	draw(this.body.iterator());
     }
     
-    // generate new apple in range of 10-490
+    // draw the snake's body parts in reverse order
+    private void draw(Iterator<BodyPart> it) {
+    	if (!it.hasNext())
+    		return;
+    	BodyPart bp = it.next();
+    	draw(it);
+    	bp.drawArc(this.gc);
+    }
+    
+    // generate new apple in range of 30-470
     private BodyPart generateApple() {
-    	double x = Math.floor(Math.random() * 480) + 10;
-    	double y = Math.floor(Math.random() * 480) + 10;
+    	double x = Math.floor(Math.random() * 440) + 30;
+    	double y = Math.floor(Math.random() * 440) + 30;
     	return new BodyPart(x,y,19,20,this.appleColor);
     }
     
@@ -163,25 +168,25 @@ public class MainController {
     		// left
 	    	case (0):
 	    		newHead.addOffset(-offset, 0);
-	    		if (newHead.getX() < -10)
+	    		if (newHead.getX() < -5)
 	    			newHead.setX(500);
 	    		break;
 	    	// up
 	    	case (1):
 	    		newHead.addOffset(0, -offset);
-	    		if (newHead.getY() < -10)
+	    		if (newHead.getY() < -5)
 	    			newHead.setY(500);
 	    		break;
 	    	// right
 	    	case (2):
 	    		newHead.addOffset(offset, 0);
-	    		if (newHead.getX() > 500)
+	    		if (newHead.getX() > 495)
 	    			newHead.setX(-10);
 	    		break;
 	    	// down
 	    	case (3):
 	    		newHead.addOffset(0, offset);
-	    		if (newHead.getY() > 500)
+	    		if (newHead.getY() > 495)
 	    			newHead.setY(-10);
 	    		break;
     	}
@@ -197,7 +202,7 @@ public class MainController {
     		this.bodySize = 5;
     	}
     	// else if has eaten the apple
-    	else if (newHead.isOverlapping(this.apple,18)) {
+    	else if (newHead.isOverlapping(this.apple,20)) {
     		// set eaten apple color (lightgreen)
     		newHead.setPaint(Color.YELLOWGREEN);
     		// get new apple
